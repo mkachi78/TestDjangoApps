@@ -1,0 +1,8 @@
+{% extends "index.html" %}
+
+{% block body %}
+    {% for key,value in cursos.items %}
+        <p>{{ key }} contiene {{ value}}</p>
+    {% endfor %}
+{% endblock %}
+

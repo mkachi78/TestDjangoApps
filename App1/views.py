@@ -6,7 +6,7 @@ from App1.models import Curso
 
 
 def inicio(request):
-    return HttpResponse("Vista inicio")
+    return render(request, 'index.html')
 
 def cursos(request):
 
@@ -17,10 +17,10 @@ def cursos(request):
         "curso3": "Nombre3",
        }
     }
-    return render(request, 'cursos.html', contexto)
+    return render(request, 'App1/cursos.html', contexto)
 
 def profesores(request):
-    return render(request,"profesores.html")
+    return render(request,"App1/profesores.html")
 
 def estudiantes(request):
     return redirect("App1Inicio")
