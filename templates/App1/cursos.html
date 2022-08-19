@@ -1,8 +1,14 @@
 {% extends "index.html" %}
 
 {% block body %}
-    {% for key,value in cursos.items %}
-        <p>{{ key }} contiene {{ value}}</p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{my_form.as_p}}
+        <input type="submit" value="Enviar">
+    </form>
+
+    {% for curso in cursos %}
+        <p>{{ curso.camada }} se llama {{ curso.nombre }}</p>
     {% endfor %}
 {% endblock %}
 
