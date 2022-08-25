@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block body %}
+    {% if cursos %}
+        <h5>Los cursos disponibles son:</h5>
+        {% for curso in cursos %}
+            <p>
+                {{ curso.camada }} se llama {{ curso.nombre }}
+                <a href="{% url 'App1CursoEliminar' curso.camada %}">Borrar</a>
+                <a href="{% url 'App1CursoEditar' curso.camada %}">Editar</a>
+            </p>
+        {% endfor %}
+    {% else %}
+        <h5>No hay cursos disponibles por el momento</h5>
+    {% endif %}
+
+    <a href="{% url 'App1CursoCrear' %}">Crear cursos</a>
+
+{% endblock %}
+

@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% block body %}
+
+    <h5>El curso de la camada {{camada}} es:</h5>
+    {% if cursos %}
+        <ul>
+            {% for curso in cursos %}
+                <li>{{curso.nombre}}</li>
+                <li>{{curso.camada}}</li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+{% endblock %}
+

@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+
+{% block body %}
+    <h3>Buscar Curso</h3>
+    <form action="/App1/curso/curso_buscar/" method="GET">
+
+        <input type="number" name="camada" id="camada">
+        <input type="submit" value="Enviar">
+
+    </form>
+
+{% endblock %}
+
