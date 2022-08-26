@@ -1,19 +1,67 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
 
 # Create your views here.
 from App1.forms import CursoForm
-from App1.models import Curso
+from App1.models import Curso, Profesor
 
 
 def inicio(request):
     return render(request, 'index.html')
 
 
+class ProfesorList(ListView):
+
+    model = Profesor
+    template_name = "App1/profesor/list.html"
+
+
+class ProfesorDetalle(DetailView):
+
+    model = Profesor
+    template_name = "App1/profesor/Detalle.html"
+
+
+class ProfesorCreacion(CreateView):
+
+    model = Profesor
+    success_url = "/App1/profesor/list"
+    fields = ['nombre', 'apellido', 'email', 'profesion']
+
+class ProfesorUpdate(UpdateView):
+
+    model = Profesor
+    success_url = "/App1/profesor/list"
+    fields = ['nombre', 'apellido', 'email', 'profesion']
+
+class ProfesorDelete(DeleteView):
+
+    model = Profesor
+    success_url = "/App1/profesor/list"
+
+
+def profesores(request):
+
+    return render(request, "App1/profesores.html")
+
+
 def curso_leer(request):
-    cursos=Curso.objects.all()
+
+    if request.method == 'POST':
+        camada = request.POST['camada']
+        cursos = Curso.objects.filter(camada__icontains=camada)
+        title = "Los cursos encontrados son: "
+    else:
+        cursos = Curso.objects.all()
+        title = "Todos los cursos: "
+
     contexto = {
-        'cursos': cursos
+        'cursos': cursos,
+        'title': title
     }
     return render(request, 'App1/curso/leer.html', contexto)
 
@@ -59,48 +107,23 @@ def curso_eliminar(request, camada):
 
     return redirect('App1CursoLeer')
 
+
 def curso_busqueda(request):
 
     return render(request, 'App1/curso/buscar.html')
+
 
 def curso_buscar(request):
 
     if request.GET['camada']:
 
-        #respuesta = f"Estoy buscando la camada nro: {request.GET['camada']}"
-        camada=request.GET['camada']
-        cursos=Curso.objects.filter(camada__icontains=camada)
+        camada = request.GET['camada']
+        cursos = Curso.objects.filter(camada__icontains=camada)
 
         return render(request, "App1/curso/res_busqueda_camada.html", {'cursos': cursos, 'camada': camada})
 
-    respuesta="No enviaste datos"
+    respuesta = "No enviaste datos"
     return HttpResponse(respuesta)
-
-def cursos(request):
-
-    if request.method == 'POST':
-        my_form = CursoForm(request.POST)
-
-        if my_form.is_valid():
-
-            data = my_form.cleaned_data
-
-            curso = Curso(nombre=data.get('nombre'), camada=data.get('camada'))
-            curso.save()
-
-    cursos=Curso.objects.all()
-
-    contexto = {
-        'cursos': cursos,
-        'my_form': CursoForm()
-    }
-
-    return render(request, 'App1/cursos.html', contexto)
-
-
-def profesores(request):
-
-    return render(request,"App1/profesores.html")
 
 
 def estudiantes(request):

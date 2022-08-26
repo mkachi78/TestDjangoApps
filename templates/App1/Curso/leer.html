@@ -2,17 +2,27 @@
 
 {% block body %}
     {% if cursos %}
-        <h5>Los cursos disponibles son:</h5>
+        <h3>{{ title }}</h3>
         {% for curso in cursos %}
             <p>
                 {{ curso.camada }} se llama {{ curso.nombre }}
-                <a href="{% url 'App1CursoEliminar' curso.camada %}">Borrar</a>
-                <a href="{% url 'App1CursoEditar' curso.camada %}">Editar</a>
+                <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'App1CursoEliminar' curso.camada %}">Borrar</a>
+                <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'App1CursoEditar' curso.camada %}">Editar</a>
             </p>
         {% endfor %}
     {% else %}
         <h5>No hay cursos disponibles por el momento</h5>
     {% endif %}
+
+    <h3>Buscar Curso</h3>
+
+    <form action="/App1/curso/" method="POST">
+
+        {% csrf_token %}
+        <input type="number" name="camada" id="camada">
+        <input type="submit" value="Enviar">
+
+    </form>
 
     <a href="{% url 'App1CursoCrear' %}">Crear cursos</a>
 

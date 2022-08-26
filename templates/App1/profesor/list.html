@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block body %}
+
+  <h1>Profesores</h1>
+  <ul>
+      {% for profesor in object_list %}
+        <li>
+          <p>Nombre: {{ profesor.nombre }} {{ profesor.apellido }}</p>
+          <p>
+              <a href="{% url 'App1ProfesorDetail' profesor.id %}">Ver</a>
+              <a href="{% url 'App1ProfesorEdit' profesor.id %}">Editar</a>
+              <a href="{% url 'App1ProfesorDelete' profesor.id %}">Borrar</a>
+          </p>
+        </li>
+
+      {% endfor %}
+
+  </ul>
+
+    <a href="{% url 'App1ProfesorNew' %}">Nuevo</a>
+
+{% endblock %}

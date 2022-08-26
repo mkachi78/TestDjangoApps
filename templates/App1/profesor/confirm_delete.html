@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+
+{% block body %}
+
+    <form method="post">{% csrf_token %}
+        ¿Estas seguro que deseas borrar el profesor "{{ object }}"?
+        <input type="submit" value="Submit" />
+    </form>
+
+{% endblock %}

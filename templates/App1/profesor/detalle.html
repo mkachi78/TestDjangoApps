@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block body %}
+
+    <p>Nombre del profesor: <i>{{ profesor.nombre }} {{ profesor.apellido }}</i></p>
+    <p>E-mail: <i>{{ profesor.email }}</i></p>
+    <p>Profesion: <i>{{ profesor.profesion }}</i></p>
+    <p>
+        <a href="{% url 'App1ProfesorList' %}">Regresar</a>
+    </p>
+
+{% endblock %}l>
