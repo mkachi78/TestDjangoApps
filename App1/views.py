@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView
@@ -24,6 +25,7 @@ class ProfesorDetalle(DetailView):
 
     model = Profesor
     template_name = "App1/profesor/Detalle.html"
+
 
 
 class ProfesorCreacion(CreateView):
@@ -65,7 +67,7 @@ def curso_leer(request):
     }
     return render(request, 'App1/curso/leer.html', contexto)
 
-
+@login_required
 def curso_crear(request):
 
     if request.method == 'POST':
